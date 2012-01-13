@@ -40,6 +40,7 @@ function windowingInitialize() {
 		cout("Fatal windowing error: \"" + error.message + "\" file:" + error.fileName + " line: " + error.lineNumber, 2);
 	}
 	//Update the settings to the emulator's default:
+  /*
 	document.getElementById("enable_sound").checked = settings[0];
 	document.getElementById("enable_mono_sound").checked = settings[1];
 	document.getElementById("disable_colors").checked = settings[2];
@@ -52,6 +53,7 @@ function windowingInitialize() {
 	document.getElementById("software_resizing").checked = settings[18];
 	document.getElementById("typed_arrays_disallow").checked = settings[5];
 	document.getElementById("gb_boot_rom_utilized").checked = settings[20];
+  */
 }
 function registerGUIEvents() {
 	cout("In registerGUIEvents() : Registering GUI Events.", -1);
@@ -174,7 +176,7 @@ function registerGUIEvents() {
 						catch (error) {
 							alert(error.message + " file: " + error.fileName + " line: " + error.lineNumber);
 						}
-						
+
 					}
 				}
 				else {
@@ -462,22 +464,10 @@ function mouseEnterVerify(oElement, event) {
 	return !isDescendantOf(oElement, (typeof event.target != "undefined") ? event.target : event.srcElement) && isDescendantOf(oElement, (typeof event.relatedTarget != "undefined") ? event.relatedTarget : event.fromElement);
 }
 function addEvent(sEvent, oElement, fListener) {
-	try {	
-		oElement.addEventListener(sEvent, fListener, false);
-		cout("In addEvent() : Standard addEventListener() called to add a(n) \"" + sEvent + "\" event.", -1);
-	}
-	catch (error) {
-		oElement.attachEvent("on" + sEvent, fListener);	//Pity for IE.
-		cout("In addEvent() : Nonstandard attachEvent() called to add an \"on" + sEvent + "\" event.", -1);
-	}
+  oElement && oElement.addEventListener(sEvent, fListener, false);
+//  cout("In addEvent() : Standard addEventListener() called to add a(n) \"" + sEvent + "\" event.", -1);
 }
 function removeEvent(sEvent, oElement, fListener) {
-	try {	
-		oElement.removeEventListener(sEvent, fListener, false);
-		cout("In removeEvent() : Standard removeEventListener() called to remove a(n) \"" + sEvent + "\" event.", -1);
-	}
-	catch (error) {
-		oElement.detachEvent("on" + sEvent, fListener);	//Pity for IE.
-		cout("In removeEvent() : Nonstandard detachEvent() called to remove an \"on" + sEvent + "\" event.", -1);
-	}
+	oElement && oElement.removeEventListener(sEvent, fListener, false);
+//		cout("In removeEvent() : Standard removeEventListener() called to remove a(n) \"" + sEvent + "\" event.", -1);
 }
